@@ -1,1 +1,1 @@
-package main //putting it in the main package
+package main; //putting it in the main package

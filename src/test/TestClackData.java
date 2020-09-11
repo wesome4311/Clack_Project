@@ -1,1 +1,1 @@
-package test//making it apart of the test package
+package test; //making it apart of the test package
