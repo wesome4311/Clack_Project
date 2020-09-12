@@ -1,42 +1,78 @@
 package data;
 
+/**
+  * The FileClackData class, capable of holding a file and its contents along with relevant data from ClackData 
+ * @author Cole Short
+ */
 public class FileClackData extends ClackData {
 	String fileName;
 	String fileContents;
 	
+	//constructors
+	/**
+	 * constructor that takes a userName, fileName, and type, uses a constructor from ClackData, and sets fileContents to null
+	 * @param userName
+	 * @param fileName
+	 * @param type
+	 */
 	public FileClackData(String userName, String fileName, int type) {
 		super(userName, type);
 		this.fileName = fileName;
 		this.fileContents = null;
 	}
 	
+	/**
+	 * constructor that uses a constructor from Clackdata, then sets fileName and fileContents to null
+	 */
 	public FileClackData() {
 		super();
 		this.fileName = null;
 		this.fileContents = null;
 	}
 	
+	//methods
+	/**
+	 * sets the fileName as the given value
+	 * @param fileName
+	 */
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
 	}
 	
+	/**
+	 * returns the name of the file accessed
+	 * @return fileName
+	 */
 	public String getFileName() {
 		return fileName;
 	}
 	
+	/**
+	 * will theoretically get the contents of the file, but is not currently done
+	 */
 	@Override
 	public String getData() {
 		return null; //will fill in later in the project
 	}
 	
+	/**
+	 * will theoretically read the contents of a file, but is not currently done
+	 */
 	public void readFileContents() {
 		//will fill in later in the project
 	}
 	
+	/**
+	 * will theoretically write to a file, but is not currently done
+	 */
 	public void writeFileContents() {
 		//will fill in later in the project
 	}
 	
+	/**
+	 * calculates a hashcode based on the class' variables
+	 * @return an integer value for a hashcode
+	 */
 	@Override
 	public int hashCode() { //should use just username, filename, filecontents and type for computation, as that's the relevant info for using a file?
 	int result = 17;
@@ -48,6 +84,11 @@ public class FileClackData extends ClackData {
 	 }
 	
 	@Override
+	/**
+	 * checks an object against the current FileClackData object, and sees if they're the same
+	 * @param other
+	 * @return true if the objects are equal, and false if they're not
+	 */
 	public boolean equals(Object other) { //@TODO
 		if (other == null) return false;
 		
@@ -62,6 +103,10 @@ public class FileClackData extends ClackData {
 		
 	}
 	
+	/**
+	 * returns a sentence containing all the applicable variables
+	 * @return string sentence that contains all the applicable variables 
+	 */
 	@Override
 	public String toString() {
 		return "The current user is "+ getUserName() + ", the date is " + getDate() + 
