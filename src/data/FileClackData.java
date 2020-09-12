@@ -1,31 +1,55 @@
 package data;
 
 public class FileClackData extends ClackData {
+	String fileName;
+	String fileContents;
 	
-
+	public FileClackData(String userName, String fileName, int type) {
+		super(userName, type);
+		this.fileName = fileName;
+		this.fileContents = null;
+	}
+	
+	public FileClackData() {
+		super();
+		this.fileName = null;
+		this.fileContents = null;
+	}
+	
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+	
+	public String getFileName() {
+		return fileName;
+	}
+	
 	@Override
 	public String getData() {
-		// TODO Auto-generated method stub
-		return null;
+		return null; //will fill in later in the project
 	}
-
+	
+	public void readFileContents() {
+		//will fill in later in the project
+	}
+	
+	public void writeFileContents() {
+		//will fill in later in the project
+	}
+	
+	@Override
+	public int hashCode() { //should use just username, filename, filecontents for computation, as that's the relevant info for using a file?
+	int result = 17;
+	result = 37*result + getUserName().hashCode();
+	result = 37*result + fileName.hashCode();
+	result = 37*result + fileContents.hashCode();
+	return result;
+	 }
+	
+	@Override
+	public boolean equals(Object Other) { //@TODO
+		return false;
+		
+	}
 }
 
-
-/*fileName: String representing name of file
-fileContents: String representing contents of file
-FileClackData( userName, fileName, type ): constructor to set up username, fileName,
- and type, should call super
-constructor,
- fileContents should be initialized to be
-null
-FileClackData(): default constructor, should call super constructor
-setFileName( fileName ): sets the file name in this object
-getFileName(): returns the file name
-getData(): implemented here to return file contents (currently null)
-readFileContents(): does not return anything, for now it should have no code,
- just a declaration
-writeFileContents():does not return anything, for now it should have no code,
- just a declaration
-hashCode(): should be correctly overridden
-equals(): should be correctly overridden */
