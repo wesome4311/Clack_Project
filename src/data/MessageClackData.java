@@ -20,17 +20,25 @@ public class MessageClackData extends ClackData {
 	}
 	
 	@Override
-	public int hashCode() { //should use just message and username for computation, as that's the relevant info for a message?
+	public int hashCode() { //should use just message, username and type for computation, as that's the relevant info for a message?
 	int result = 17;
 	result = 37*result + message.hashCode();
 	result = 37*result + getUserName().hashCode();
+	result = 37*result + getType();
 	return result;
 	 }
 	
 	@Override
-	public boolean equals(Object Other) { //@TODO
-		return false;
+	public boolean equals(Object other) { //@TODO
+		if (other == null) return false;
 		
+		if (!(other instanceof MessageClackData)) return false;
+		
+		MessageClackData otherMessageClackData = (MessageClackData)other;
+
+		return getUserName() == otherMessageClackData.getUserName() &&
+				getType() == otherMessageClackData.getType() &&
+				message == otherMessageClackData.message;
 	}
 	
 	@Override
