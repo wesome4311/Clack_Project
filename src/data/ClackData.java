@@ -12,7 +12,7 @@ public abstract class ClackData implements Clack{
 	private String userName; //String representing name of client user
 	private int type;
 	private Date date; //Date object representing date when ClackData object was created
-	
+
 	//constructors
 	/**
 	 * constructor that takes userName and type, then generates a date
@@ -24,7 +24,7 @@ public abstract class ClackData implements Clack{
 		this.type = type;
 		this.date = new Date();
 	}
-	
+
 	/**
 	 * constructor that takes type, and passes adds on Anon as the default userName
 	 * @param type
@@ -32,14 +32,14 @@ public abstract class ClackData implements Clack{
 	public ClackData( int type ) {
 		this("Anon", type );
 	}
-	
+
 	/**
 	 * constructor that takes no arguments, and assigns zero as the default value of type
 	 */
 	public ClackData() {
 		this(CONSTANT_LISTUSERS); //type currently defaults to list users
 	}
-	
+
 	//methods
 	/**
 	 * returns the type
@@ -48,7 +48,7 @@ public abstract class ClackData implements Clack{
 	public int getType() {
 		return type;
 	}
-	
+
 	/**
 	 * returns the username of the current user
 	 * @return the userName variable
@@ -56,7 +56,7 @@ public abstract class ClackData implements Clack{
 	public String getUserName() {
 		return userName;
 	}
-	
+
 	/**
 	 * returns the date
 	 * @return the date variable
@@ -64,11 +64,22 @@ public abstract class ClackData implements Clack{
 	public Date getDate() {
 		return date;
 	}
-	
+
 	/**
 	 * abstract method, returns either a message or a file's contents
 	 */
 	public abstract String getData();
+
+	/**
+	 * abstract method, decrypts and returns either a message or a file's contents
+	 */
+	public abstract String getData(String key);
+
+	protected String encrypt( String inputStringToEncrypt, String key ){
+		return null; //@TODO
+	}
+
+	protected String decrypt( String inputStringToDecrypt, String key ){
+		return null; //@TODO
+	}
 }
-
-

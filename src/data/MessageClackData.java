@@ -2,12 +2,12 @@ package data;
 
 /**
  * The MessageClackData class, capable of holding messages and relevant data from ClackData
- * 
+ *
  * @author Cole Short
  */
 public class MessageClackData extends ClackData {
 	private String message;
-	
+
 	//constructors
 	/**
 	 * Constructor that takes userName, message, and type, which it uses to call ClackData's constructor
@@ -19,14 +19,28 @@ public class MessageClackData extends ClackData {
 		super(userName, type);
 		this.message = message;
 	}
-	
+
+	/**
+	 * Constructor that takes userName, message, key, and type, which it uses to call ClackData's constructor with an encrypted message
+	 * @param userName
+	 * @param message
+	 * @param key
+	 * @param type
+	 */
+	public MessageClackData( String userName, String message, String key, int type ){
+		super(userName, type);
+		this.message = encrypt(message, key);
+		// we don't want to save the key as an instance variable as that would make it easier to find out the key and thus break the encryption
+	}
+
 	/**
 	 * constructor that takes no arguments, and sets username to Anon, the message to null, and the type zero
 	 */
 	public MessageClackData() {
 		this("Anon", null, CONSTANT_LISTUSERS);
 	}
-	
+
+
 	//methods
 	/**
 	 * returns the user's message
@@ -35,8 +49,16 @@ public class MessageClackData extends ClackData {
 	public String getData() {
 		return message;
 	}
-	
-	
+
+
+	/**
+	 * returns the user's message, but first decrypts it
+	 * @return the decrypted message
+	 */
+	public String getData(String key) {
+		return decrypt(message, key);
+	}
+
 	@Override
 	/**
 	 * calculates a hashcode based on the class' variables
@@ -49,7 +71,7 @@ public class MessageClackData extends ClackData {
 	result = 37*result + getType();
 	return result;
 	 }
-	
+
 	@Override
 	/**
 	 * checks an object against the current MessageClackData object, and sees if they're the same
@@ -58,25 +80,24 @@ public class MessageClackData extends ClackData {
 	 */
 	public boolean equals(Object other) { //@TODO
 		if (other == null) return false;
-		
+
 		if (!(other instanceof MessageClackData)) return false;
-		
+
 		MessageClackData otherMessageClackData = (MessageClackData)other;
 
 		return getUserName() == otherMessageClackData.getUserName() &&
 				getType() == otherMessageClackData.getType() &&
 				message == otherMessageClackData.message;
 	}
-	
+
 	/**
 	 * returns a sentence containing all the applicable variables
-	 * @return string sentence that contains all the applicable variables 
+	 * @return string sentence that contains all the applicable variables
 	 */
 	@Override
 	public String toString() {
-		return "The current user is "+ getUserName() + ", the date is " + getDate() + 
+		return "The current user is "+ getUserName() + ", the date is " + getDate() +
 				", the user's message is " + message + " and the type value is " + getType();
 		//return a string that's a list of all the variables here; userName, date, type, message
 	}
 }
-
