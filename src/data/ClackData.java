@@ -105,7 +105,7 @@ public abstract class ClackData implements Clack{
 		        encrypted += (char)(y);
 			}
 			else if (Character.isLowerCase(inputStringToEncrypt.charAt(i))) {
-				int y = (inputStringToEncrypt.charAt(i) + Character.toLowerCase(key.charAt(i))) %26;
+				int y = (inputStringToEncrypt.charAt(i) + Character.toLowerCase(key.charAt(i)) - 12) %26; //I don't fully know why I needed to subtract 12 for only the lowercase, but I found that it works through trial and error
 				// convert into lowercase character
 		        y += 'a';
 		        encrypted += (char)(y);
