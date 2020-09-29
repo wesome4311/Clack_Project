@@ -76,6 +76,12 @@ public abstract class ClackData implements Clack{
 	 */
 	public abstract String getData(String key);
 	
+	/**
+	 * returns a lengthened version of the key
+	 * @param line
+	 * @param key
+	 * @return a lengthened key
+	 */
 	public String lengthen(String line, String key) { 
 		int i = 0;
 	    while (true) 
@@ -91,6 +97,12 @@ public abstract class ClackData implements Clack{
 	    return key; 
 	}
 	
+	/**
+	 * returns a encrypted version of the given string
+	 * @param inputStringToEncrypt
+	 * @param key
+	 * @return an encrypted version of the given string
+	 */
 	protected String encrypt( String inputStringToEncrypt, String key ){
 		//need to lengthen the key to the length of the string
 		key = lengthen(inputStringToEncrypt, key);
@@ -118,7 +130,13 @@ public abstract class ClackData implements Clack{
 		//used https://www.geeksforgeeks.org/vigenere-cipher/ as a reference
 	    return encrypted;
 	}
-
+	
+	/**
+	 * returns a decrypted version of the given encrypted string
+	 * @param inputStringToDecrypt
+	 * @param key
+	 * @return an decrypted version of the given string
+	 */
 	protected String decrypt( String inputStringToDecrypt, String key ){
 	    //need to lengthen the key to the length of the string
 		key = lengthen(inputStringToDecrypt, key);
