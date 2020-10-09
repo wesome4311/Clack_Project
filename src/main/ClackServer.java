@@ -8,7 +8,7 @@ import data.ClackData;
 *In this class we initiate the connection, data sent and received and port 
 *This class extends ClackData
 */
-public class ClackServer{ //extends ClackData{
+public class ClackServer{ //extends ClackData{ //why was this extending clackdata?
 	
 		private int port;
 		private boolean closeConnection;
@@ -52,8 +52,8 @@ public class ClackServer{ //extends ClackData{
 		@Override
 		public int hashCode() {
 		int result = 17;
-		result = 37*result + getPort()).hashCode();
-		result = 37*result + getType();
+		result = 37*result + getPort();
+		//result = 37*result + getType(); //don't know what you were trying to get here, as clack server doesn't have a type
 		return result;
 		 }
 		
@@ -63,7 +63,7 @@ public class ClackServer{ //extends ClackData{
 			
 			if (!(other instanceof ClackServer)) return false;
 			
-			FileClackData otherClackServer = (FileClackData)other;
+			ClackServer otherClackServer = (ClackServer)other;
 
 			return getPort() == otherClackServer.getPort();
 			

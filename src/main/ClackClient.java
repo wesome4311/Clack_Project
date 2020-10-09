@@ -9,7 +9,7 @@ import data.ClackData;
 *In this class we initiate the userName, hostName and port 
 *This class extends ClackData
 */
-public class ClackClient{ // extends ClackData{
+public class ClackClient{ // extends ClackData{ //why was this extending clackdata?
 
 		private String userName;
 		private String hostName;
@@ -17,6 +17,7 @@ public class ClackClient{ // extends ClackData{
 		private boolean closeConnection;
 		private ClackData dataToSendToServer;
 		private ClackData dataToReceiveFromServer;
+		final static int portNumber = 7000;
 	
 		/**
 		*Setting up the constructors for this class
@@ -24,28 +25,26 @@ public class ClackClient{ // extends ClackData{
 		*/
 		
 		public ClackClient(String userName, String hostName, int port){
-			this.port = port;
 			this.userName = userName;
 			this.hostName = hostName;
+			this.port = port;
 			this.closeConnection = true; //open
 			this.dataToReceiveFromServer = null;
 			this.dataToSendToServer = null;
 		}
 		
 		public ClackClient(String userName, String hostName){
-			const port = 7000;
-			this("Anon",userName, hostName, port);
+			this(userName, hostName, portNumber);
 		}
 		
 		public ClackClient(String userName){
-			this.userName = userName;
-			this.hostName = "localhost";
+			this(userName, "localhost");
 		}
 		
 		public ClackClient(){
-			this.userName = "anonymous";
-			this("Anon", userName);
+			this("Anon");
 		}
+		
 		
 		
 		
@@ -53,20 +52,30 @@ public class ClackClient{ // extends ClackData{
 		*Declaring function that will be initialized later in the project
 		*/
 		public boolean start() {
-			
+			return true;
 		}
+		
+		
 		public void readClientData() {
 			
 		}
+		
+		
 		public void sendData() {
 			
 		}
+		
+		
 		public void receiveData() {
 			
 		}
+		
+		
 		public void printData() {
 			
 		}
+
+		
 		
 		//Methods
 		public String getUserName(){
@@ -86,9 +95,9 @@ public class ClackClient{ // extends ClackData{
 		public int hashCode(){
 			int result = 17;
 			result = 37*result + getUserName().hashCode();
-			result = 37*result + getHostName.hashCode();
-			result = 37*result + getPort.hashCode();
-			result = 37*result + getType();
+			result = 37*result + getHostName().hashCode();
+			result = 37*result + getPort();
+			//result = 37*result + getType(); //don't know what you were trying to get here, as clack client doesn't have a type
 			return result;
 		}
 		
@@ -99,18 +108,18 @@ public class ClackClient{ // extends ClackData{
 			if (!(other instanceof ClackClient)) 
 				return false;
 			
-			FileClackData otherClackClient = (FileClackData)other;
+			ClackClient otherClackClient = (ClackClient)other;
 
 			return getUserName() == otherClackClient.getUserName() &&
-					hostName == otherClackClient.hostName &&
+					hostName == otherClackClient.getHostName() &&
 					getPort() == otherClackClient.getPort();
 			
 		}
 		
 		@Override
 		public String toString(){
-			return "The port #  is: "+ getport() + "\n" +
-					"The userName is: "+ getUserName()) + "\n"+ 
+			return "The port #  is: "+ getPort() + "\n" +
+					"The userName is: "+ getUserName() + "\n"+ 
 					"The hostName is: "+ getHostName() + "\n\n";
 		}
 

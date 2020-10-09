@@ -109,7 +109,7 @@ public class FileClackData extends ClackData {
 		FileClackData otherFileClackData = (FileClackData)other;
 
 		return getUserName() == otherFileClackData.getUserName() &&
-				fileName == otherFileClackData.fileName &&
+				fileName == otherFileClackData.getFileName() &&
 				getType() == otherFileClackData.getType() &&
 				fileContents == otherFileClackData.fileContents;
 
