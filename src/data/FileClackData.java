@@ -1,10 +1,8 @@
 package data;
-import java.io.*;
 
 /**
   * The FileClackData class, capable of holding a file and its contents along with relevant data from ClackData
  * @author Cole Short
- * Updated 9/28/2020 by Lauren Nandal
  */
 public class FileClackData extends ClackData {
 	String fileName;
@@ -68,86 +66,19 @@ public class FileClackData extends ClackData {
 	}
 
 	/**
-	 * read the contents of a file
+	 * will theoretically read the contents of a file, but is not currently done
 	 */
-	public void readFileContents(String Key) {
-		try {
-			BufferedReader inFile = new BufferedReader(new FileReader(fileName));
-			String nextLine = inFile.readLine();
-			fileContents = nextLine;
-			while(nextLine = inFile.readLine() != null)
-			{
-				fileContents = fileContents + nextLine;
-			}
-				
-			inFile.close();
-			fileContents = encrypt(fileContents, Key);
-		}catch(FileNotFoundException fnfn) {
-			System.err.println("File not found");
-		}catch(IOException ioe) {
-			System.err.println("Error in reading file");	
-		}catch(ClassNotFoundException cnfe) {
-			System.err.println("Class not found");	
-		}
+	public void readFileContents() {
+		//will fill in later in the project
 	}
 
-	public void readFileContents() {
-		try {
-			BufferedReader inFile = new BufferedReader(new FileReader(fileName));
-			String nextLine = inFile.readLine();
-			fileContents = nextLine;
-			while(nextLine = inFile.readLine() != null)
-			{
-				fileContents = fileContents + nextLine;
-			}
-				
-			inFile.close();
-		}catch(FileNotFoundException fnfn) {
-			System.err.println("File not found");
-		}catch(IOException ioe) {
-			System.err.println("Error in reading file");	
-		}catch(ClassNotFoundException cnfe) {
-			System.err.println("Class not found");	
-		}
-	}
 	/**
-	 * write to a file
+	 * will theoretically write to a file, but is not currently done
 	 */
 	public void writeFileContents() {
-		try {
-			BufferedWriter outFile = new BufferedWriter(new FileWriter(fileName));
-			outFile.write(fileContents);
-				
-			outFile.close();
-			
-		}catch(FileNotFoundException fnfn) {
-			System.err.println("File not found");
-		}catch(IOException ioe) {
-			System.err.println("Error in reading file");	
-		}catch(Exception ex) {
-			System.err.println("Error in closing file");	
-		}
+		//will fill in later in the project
 	}
 
-	public void writeFileContents(String Key) {
-		try {
-			BufferedWriter outFile = new BufferedWriter(new FileWriter(fileName));
-			fileContents = decrypt(fileContents, Key);
-			outFile.write(fileContents);
-				
-			outFile.close();
-			
-		}catch(FileNotFoundException fnfn) {
-			System.err.println("File not found");
-		}catch(IOException ioe) {
-			System.err.println("Error in reading file");	
-		}catch(Exception ex) {
-			System.err.println("Error in closing file");	
-		}
-	}
-
-
-	
 	/**
 	 * calculates a hashcode based on the class' variables
 	 * @return an integer value for a hashcode

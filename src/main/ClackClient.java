@@ -1,8 +1,6 @@
 package main; //putting it in the main package
 
 import java.util.*;
-import java.io.*;
-import java.net.*;
 
 /**
 *ClackClient class
@@ -17,8 +15,6 @@ public class ClackClient extends ClackData{
 		private boolean closeConnection;
 		private ClackData dataToSendToServer;
 		private ClackData dataToReceiveFromServer;
-		private Scanner inFromStd = new Scanner(new InputStreamReader( System.in ));;
-
 	
 		/**
 		*Setting up the constructors for this class
@@ -45,76 +41,34 @@ public class ClackClient extends ClackData{
 			this("Anon", userName);
 		}
 		
-
-		/*
-		 * Updated 9/28/2020 
-		 * Initializing the interface
-		 */
-		public boolean start() {
-			try{
-				Socket skt = new Socket(userName, port);
-				readClientData();
-				printData();
-			} catch( NoRouteToHostException nrhe ) {
-				System.err.println( "Route to host not available" );
-			} catch( ConnectException ce ) {
-				System.err.println( "Connection Refused" );
-			} catch( IOException ioe ) {
-				System.err.println( "IO Exception generated: ");
-			}
-		}
-		public void readClientData() {
-			inFromStd.readLine();
-		}
-		public void printData() {
-			PrintWriter outToServer = new PrintWriter(skt.getOutputStream(), true );
-		}
-		
 		/**
 		*Declaring function that will be initialized later in the project
 		*/
+		public boolean start() {
+			
+		}
+		public void readClientData() {
+			
+		}
 		public void sendData() {
 			
 		}
 		public void receiveData() {
 			
 		}
-		
-		/*Methods
-		*Updated 9/28/2020
-		*/
-		public String getUserName(){
-			try{
-				if(userName == "Null") {
-					throw new IllegalArguementException("Username is null");
-				}else
-					return userName;
-			}catch(IllegalArguementException i) {
-				System.err.print("Illegal Arguement");
-			}
+		public void printData() {
 			
+		}
+		
+		//Methods
+		public String getUserName(){
+			return userName;
 		}
 		public String getHostName(){
-			try{
-				if(hostName == "Null") {
-					throw new IllegalArguementException("Hostname is null");
-				}else
-					return hostName;
-			}catch(IllegalArguementException i) {
-				System.err.print("Illegal Arguement");
-			}
-			
+			return hostName;
 		}
 		public int getPort(){
-			try{
-				if(port < 1024) {
-					throw new IllegalArguementException("Port is less than 1024");
-				}else
-					return port;
-			}catch(IllegalArguementException i) {
-				System.err.print("Illegal Arguement");
-			}
-			
+			return port;
 		}
 		
 		/**
@@ -151,4 +105,5 @@ public class ClackClient extends ClackData{
 					"The userName is: "+ getUserName()) + "\n"+ 
 					"The hostName is: "+ getHostName() + "\n\n";
 		}
+
 }
