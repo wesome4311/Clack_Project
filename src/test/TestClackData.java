@@ -1,5 +1,8 @@
 package test; //making it apart of the test package
 
+import data.FileClackData;
+import data.MessageClackData;
+
 public class TestClackData{
 	public static void main(String[] args){
 		FileClackData fileClackData1 = new FileClackData(); //Testing default constructor
@@ -14,12 +17,12 @@ public class TestClackData{
 							+ "toString: "+ MessageClackData1.toString() + "\n\n");
 		
 		System.out.println("Testing FileClackData: \n" 
-				+ "getData: " + FileClackData1.getData() + "\n" 
-				+ "hashCode: "+ FileClackData1.hashCode() + "\n"
-				+ "setFileName: " + FileClackData1.setFileName() + "\n"
-				+ "getFileName: " + FileClackData1.getFileName() + "\n"
-				+ "equals: "+ FileClackData1.equals() + "\n"
-				+ "toString: "+ FileClackData1.toString() + "\n\n");
+				+ "getData: " + fileClackData1.getData() + "\n" 
+				+ "hashCode: "+ fileClackData1.hashCode() + "\n"
+				+ "setFileName: " + fileClackData1.setFileName() + "\n"
+				+ "getFileName: " + fileClackData1.getFileName() + "\n"
+				+ "equals: "+ fileClackData1.equals() + "\n"
+				+ "toString: "+ fileClackData1.toString() + "\n\n");
 	}
 	
 }

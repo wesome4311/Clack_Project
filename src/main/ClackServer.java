@@ -1,12 +1,14 @@
 package main; //putting it in the main package
 
 import java.util.*;
+
+import data.ClackData;
 /**
 *ClackServer class
 *In this class we initiate the connection, data sent and received and port 
 *This class extends ClackData
 */
-public class ClackServer extends ClackData{
+public class ClackServer{ //extends ClackData{
 	
 		private int port;
 		private boolean closeConnection;
@@ -16,7 +18,7 @@ public class ClackServer extends ClackData{
 		*Setting up the constructors for this class
 		*as well as a default constructor
 		*/
-		public ClackServer(Port){
+		public ClackServer(int port){
 			this.port = port;
 			this.dataToReceiveFromClient = null;
 			this.dataToSendToClient = null;

@@ -2,12 +2,14 @@ package main; //putting it in the main package
 
 import java.util.*;
 
+import data.ClackData;
+
 /**
 *ClackClient class
 *In this class we initiate the userName, hostName and port 
 *This class extends ClackData
 */
-public class ClackClient extends ClackData{
+public class ClackClient{ // extends ClackData{
 
 		private String userName;
 		private String hostName;
@@ -20,26 +22,32 @@ public class ClackClient extends ClackData{
 		*Setting up the constructors for this class
 		*as well as a default constructor
 		*/
-		public ClackClient(userName, hostName, port){
+		
+		public ClackClient(String userName, String hostName, int port){
 			this.port = port;
 			this.userName = userName;
 			this.hostName = hostName;
 			this.closeConnection = true; //open
-			this.dataToReceiveServer = null;
+			this.dataToReceiveFromServer = null;
 			this.dataToSendToServer = null;
 		}
-		public ClackClient(userName, hostName){
+		
+		public ClackClient(String userName, String hostName){
 			const port = 7000;
 			this("Anon",userName, hostName, port);
 		}
-		public ClackClient(userName){
+		
+		public ClackClient(String userName){
 			this.userName = userName;
 			this.hostName = "localhost";
 		}
+		
 		public ClackClient(){
 			this.userName = "anonymous";
 			this("Anon", userName);
 		}
+		
+		
 		
 		/**
 		*Declaring function that will be initialized later in the project

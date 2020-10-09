@@ -30,6 +30,8 @@ public class FileClackData extends ClackData {
 		this.fileContents = null;
 	}
 
+	
+	
 	//methods
 	/**
 	 * sets the fileName as the given value
