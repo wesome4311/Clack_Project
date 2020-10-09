@@ -18,6 +18,7 @@ public class ClackClient extends ClackData{
 		private ClackData dataToSendToServer;
 		private ClackData dataToReceiveFromServer;
 		private Scanner inFromStd = new Scanner(new InputStreamReader( System.in ));;
+
 	
 		/**
 		*Setting up the constructors for this class
@@ -44,6 +45,7 @@ public class ClackClient extends ClackData{
 			this("Anon", userName);
 		}
 		
+
 		/*
 		 * Updated 9/28/2020 
 		 * Initializing the interface
@@ -149,5 +151,4 @@ public class ClackClient extends ClackData{
 					"The userName is: "+ getUserName()) + "\n"+ 
 					"The hostName is: "+ getHostName() + "\n\n";
 		}
-
 }
