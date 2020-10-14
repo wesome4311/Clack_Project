@@ -8,7 +8,7 @@ import clack.Clack;
  *
  * @author Cole Short
  */
-public abstract class ClackData implements Clack{
+public abstract class ClackData implements Serializable{
 	private String userName; //String representing name of client user
 	private int type;
 	private Date date; //Date object representing date when ClackData object was created

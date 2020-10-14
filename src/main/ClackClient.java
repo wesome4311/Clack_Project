@@ -17,8 +17,9 @@ public class ClackClient extends ClackData{
 		private boolean closeConnection;
 		private ClackData dataToSendToServer;
 		private ClackData dataToReceiveFromServer;
-		private Scanner inFromStd = new Scanner(new InputStreamReader( System.in ));;
-
+		private Scanner inFromStd;
+		private ObjectInputStream inFromServer;
+		private ObjectOutputStream outToServer;
 	
 		/**
 		*Setting up the constructors for this class
@@ -49,35 +50,59 @@ public class ClackClient extends ClackData{
 		/*
 		 * Updated 9/28/2020 
 		 * Initializing the interface
+		 * Updated 10/13/2020
+		 * Implementing outToServer and inToServer
 		 */
 		public boolean start() {
+			this.inFromStd = new Scanner(System.in);
 			try{
-				Socket skt = new Socket(userName, port);
-				readClientData();
-				printData();
-			} catch( NoRouteToHostException nrhe ) {
-				System.err.println( "Route to host not available" );
-			} catch( ConnectException ce ) {
-				System.err.println( "Connection Refused" );
-			} catch( IOException ioe ) {
+				Socket skt = new Socket(this.hostName, this.port);
+				this.outToServer = new ObjectOutputStream(skt.getOutputStream());
+				this.inFromServer = new ObjectInputStream(new PrintWriter(skt.getOutputStream(), true ););
+				while(!closeConnection) {
+					readClientData();
+					sendData();
+					recieveData();
+					printData();
+				}
+				
+				this.outToServer.close();
+				this.inFromServer.close();
+				skt.close();
+			} catch( UnknownHostException uhe) {
+				System.err.println( "Route to host is not available" );
+			} catch( ConnectException ce) {
+				System.err.println( "Connect Exception" );
+			}catch( NoRouteToHostException nrthe) {
+				System.err.println( "No route to host"" );
+			}catch( IOException ioe ) {
 				System.err.println( "IO Exception generated: ");
 			}
 		}
 		public void readClientData() {
-			inFromStd.readLine();
+			dataToSendToServer = inFromStd.readLine();
 		}
 		public void printData() {
-			PrintWriter outToServer = new PrintWriter(skt.getOutputStream(), true );
+			System.out.println("Server Sent: "+dataRecievedFromServer)
 		}
 		
 		/**
-		*Declaring function that will be initialized later in the project
+		*Updated 10/13/2020
+		*Implementing sendData() and recieveData() for server use
 		*/
 		public void sendData() {
-			
+			try {
+				outToServer.println(dataToSendToServer)
+			}catch( IOException ioe ) {
+				System.err.println( "IO Exception generated: " + ioe.getMessage() );
+			}
 		}
 		public void receiveData() {
-			
+			try {
+				dataToRecieveFromServer = inFromServer.readLine();
+			}catch( IOException ioe ) {
+				System.err.println( "IO Exception generated: " + ioe.getMessage() );
+			}
 		}
 		
 		/*Methods
