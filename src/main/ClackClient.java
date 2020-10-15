@@ -15,7 +15,7 @@ import java.net.*;
 *This class extends ClackData
 */
 
-public class ClackClient implements Clack{ //you had this extend clackdata before, and I don't know why, currently Clack just provides the int portNumber = 7000
+public class ClackClient implements Clack{ //you had this extend clackdata before, and I don't know why, it didn't really need to implement clack either, but i have clack holding onto the portnumber value now
 
 		private String userName;
 		private String hostName;
@@ -63,7 +63,7 @@ public class ClackClient implements Clack{ //you had this extend clackdata befor
          * Updated 10/13/2020
          * Implementing outToServer and inToServer
          */
-        public boolean start() {
+        public void start() {
             this.inFromStd = new Scanner(System.in);
             try{
                 Socket skt = new Socket(this.hostName, this.port);
@@ -201,5 +201,53 @@ public class ClackClient implements Clack{ //you had this extend clackdata befor
 					"The userName is: "+ getUserName() + "\n"+ 
 					"The hostName is: "+ getHostName() + "\n\n";
 		}
-
+		
+		
+		public static void main(String args[]) {
+			if (args.length > 1) { //at max, should only be taking in one (combined) argument, so if it has more than one, there's a problem
+				System.out.println("Incorrect number of arguments, please check your formating and try again");
+			}
+			else if (args.length < 1) { //if there's no arguments, it gets set to the defaults of the constructors
+				ClackClient defaultClient = new ClackClient();
+				defaultClient.start();
+			}
+			else {//takes a variable in the form of  <username>@<hostname>:<portnumber>, and any number of them could be cut off
+				//using a scanner to just quickly break apart the arg variable, and then storing them as seperate variables in another list
+				Scanner scan = new Scanner(args[1]);
+				scan.useDelimiter("@|:"); //one error that can come because of this is I can write something like <username>@<hostname>@<portnumber> and it would be fine, but the description never said anything about error handling so I'm gonna leave it like this
+				String split[] = {" ", " ", " "}; //kept getting an error when I initialized to null, so this is the next best thing i guess, hope no one has just a space for a username or hostname
+				int i = 0;
+				
+				while (scan.hasNext()) {
+					if (i <= 2 ) {
+						split[i] = scan.next();
+					} //avoids dealing with if some wrote 1@2@3@4@5, as I just don't grab the extra variables
+					else {
+						scan.next(); //still need to move the scanner along, otherwise it'll be infinite
+					}
+					i++;
+				}//split 0 should now have username, split 1 should have hostname, and split 2 should have portnumber
+				
+				ClackClient specialClient = null;
+				if (split[0] != " ") {
+					if (split[1] != " ") {
+						if (split[2] != " ") {
+							specialClient = new ClackClient(split[0], split[1], Integer.parseInt( split[2]) ); //if we have all three
+						}
+						else {
+							specialClient = new ClackClient(split[0], split[1]); //if we only have a username and hostname
+						}
+					}
+					else {
+						specialClient = new ClackClient(split[0]); //if we only have a username
+					}
+				}
+				//the else case that would be here is already taken care of with the default client
+				
+				scan.close();
+				specialClient.start();
+			}
+		}
+		
+		
 }

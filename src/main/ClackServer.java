@@ -10,7 +10,7 @@ import data.ClackData;
 *In this class we initiate the connection, data sent and received and port 
 *This class extends ClackData
 */
-public class ClackServer{ //extends ClackData{ //why was this extending clackdata?
+public class ClackServer{
 	
 		private int port;
 		private boolean closeConnection;
@@ -121,5 +121,22 @@ public class ClackServer{ //extends ClackData{ //why was this extending clackdat
 		public String toString(){
 			return "The port # is: "+ getPort() + "\n\n";
 		}
+		
+		
+		public static void main(String args[]) {
+			if (args.length > 1) { //at max, should only be taking in one (combined) argument, so if it has more than one, there's a problem
+				System.out.println("Incorrect number of arguments, please check your formating and try again");
+			}
+			else if (args.length < 1) { //if there's no arguments, it gets set to the defaults of the constructors
+				ClackServer defaultServer = new ClackServer();
+				defaultServer.start();
+			}
+			else {//takes a variable in the form of <portnumber>
+				ClackServer regularServer = new ClackServer( Integer.parseInt(args [0]) );
+				regularServer.start();
+			}
+		}
+		
+		
 }
 
