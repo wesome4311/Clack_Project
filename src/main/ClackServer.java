@@ -1,5 +1,6 @@
 package main; //putting it in the main package
 
+import java.io.*;
 import java.util.*;
 
 import data.ClackData;
@@ -14,6 +15,10 @@ public class ClackServer{ //extends ClackData{ //why was this extending clackdat
 		private boolean closeConnection;
 		private ClackData dataToReceiveFromClient;
 		private ClackData dataToSendToClient;
+		final static int portNumber = 7000;
+		private ObjectInputStream inFromClient;
+        private ObjectOutputStream outToClient;
+
 		/**
 		*Setting up the constructors for this class
 		*as well as a default constructor
@@ -23,23 +28,65 @@ public class ClackServer{ //extends ClackData{ //why was this extending clackdat
 			this.dataToReceiveFromClient = null;
 			this.dataToSendToClient = null;
 		}
+		
 		public ClackServer(){
-			const port = 7000;
-			this("Anon", port );
+			this(portNumber);
 		}
 		
 		/**
-		*Declaring function that will be initialized later in the project
-		*/
-		public void start() {
-			
-		}
-		public void receiveData() {
-			
-		}
-		public void sendData(){
-			
-		}
+	    *Updated 10/13/2020
+	    *Initializezed start() method
+	    */
+	    public void start() {
+	            try {
+	                ServerSocket sskt = new ServerSocket(this.port);
+	                Socket clientSkt = sskt.accept();
+	                this.outToClient = new ObjectOutputStream(sskt.getOutputStream());
+	                this.inFromClient = new ObjectInputStream(sskt.getInputStream());
+	                
+	                while(!closeConnection) {
+	                    recieveData();
+	                    sendData();
+	                }
+	                    
+	                inFromClient.close();
+	                outToClient.close();
+	                clientSkt.close();
+	                sskt.close();
+	            
+	            }catch(UnknownHostException uhe) {
+	                System.err.println( "Route to host not available" );
+	            }catch( ConnectException ce) {
+	                System.err.println( "Connect Exception" );
+	            }catch( NoRouteToHostException nrthe) {
+	                System.err.println( "No route to host"" );
+	            }catch( IOException ioe ) {
+	                System.err.println( "IO Exception generated: ");
+	            }
+	        }
+	        
+	        
+	    public void receiveData() {
+	            try{
+	                dataToRecieveFromClient = inFromClient.readLine():
+	                System.out.println("Client Sent:"+ dataToRecieveFromClient);
+	            }catch ( IOException ioe ) {
+	                System.err.println( "IO Exception generated: " + ioe.getMessage() );
+	            }
+	            
+	        }
+	        
+	    
+	    public void sendData(){
+	            try{
+	                dataToSendToClient = "Echoed" + dataToRecieveFromClient;
+	                System.out.println("Sending to client --- " + dataToSendToClient);
+	                outToClient.println(dataToSendToClient);
+	                outToClient.flush();
+	            }catch( IOException ioe ) {
+	                System.err.println( "IO Exception generated: " + ioe.getMessage() );
+	            }
+	        }
 		
 		//Methods
 		public int getPort(){

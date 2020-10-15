@@ -1,15 +1,21 @@
 package main; //putting it in the main package
 
+import data.ClackData;
 import java.util.*;
 
-import data.ClackData;
+import clack.Clack;
+
+import java.io.*;
+import java.net.*;
+
 
 /**
 *ClackClient class
 *In this class we initiate the userName, hostName and port 
 *This class extends ClackData
 */
-public class ClackClient{ // extends ClackData{ //why was this extending clackdata?
+
+public class ClackClient implements Clack{ //you had this extend clackdata before, and I don't know why, currently Clack just provides the int portNumber = 7000
 
 		private String userName;
 		private String hostName;
@@ -17,7 +23,10 @@ public class ClackClient{ // extends ClackData{ //why was this extending clackda
 		private boolean closeConnection;
 		private ClackData dataToSendToServer;
 		private ClackData dataToReceiveFromServer;
-		final static int portNumber = 7000;
+		private Scanner inFromStd;
+        private ObjectInputStream inFromServer;
+        private ObjectOutputStream outToServer;
+
 	
 		/**
 		*Setting up the constructors for this class
@@ -48,45 +57,115 @@ public class ClackClient{ // extends ClackData{ //why was this extending clackda
 		
 		
 		
-		/**
-		*Declaring function that will be initialized later in the project
-		*/
-		public boolean start() {
-			return true;
-		}
-		
-		
-		public void readClientData() {
-			
-		}
-		
-		
-		public void sendData() {
-			
-		}
-		
-		
-		public void receiveData() {
-			
-		}
-		
-		
-		public void printData() {
-			
-		}
+		/*
+         * Updated 9/28/2020 
+         * Initializing the interface
+         * Updated 10/13/2020
+         * Implementing outToServer and inToServer
+         */
+        public boolean start() {
+            this.inFromStd = new Scanner(System.in);
+            try{
+                Socket skt = new Socket(this.hostName, this.port);
+                this.outToServer = new ObjectOutputStream(skt.getOutputStream());
+                this.inFromServer = new ObjectInputStream(new PrintWriter(skt.getOutputStream(), true ););
+                while(!closeConnection) {
+                    readClientData();
+                    sendData();
+                    receiveData();
+                    printData();
+                }
+                
+                this.outToServer.close();
+                this.inFromServer.close();
+                skt.close();
+            } catch( UnknownHostException uhe) {
+                System.err.println( "Route to host is not available" );
+            } catch( ConnectException ce) {
+                System.err.println( "Connect Exception" );
+            }catch( NoRouteToHostException nrthe) {
+                System.err.println( "No route to host" );
+            }catch( IOException ioe ) {
+                System.err.println( "IO Exception generated: ");
+            }
+        }
+        
+        
+        public void readClientData() {
+            dataToSendToServer = inFromStd.readLine();
+        }
+        
+        
+        public void printData() {
+            System.out.println("Server Sent: " + dataRecievedFromServer)
+        }
+        
+        
+        /**
+        *Updated 10/13/2020
+        *Implementing sendData() and recieveData() for server use
+        */
+        public void sendData() {
+            try {
+                outToServer.println(dataToSendToServer)
+            }catch( IOException ioe ) {
+                System.err.println( "IO Exception generated: " + ioe.getMessage() );
+            }
+        }
+        
+        
+        public void receiveData() {
+            try {
+                dataToRecieveFromServer = inFromServer.readLine();
+            }catch( IOException ioe ) {
+                System.err.println( "IO Exception generated: " + ioe.getMessage() );
+            }
+        }
+
 
 		
 		
-		//Methods
-		public String getUserName(){
-			return userName;
-		}
-		public String getHostName(){
-			return hostName;
-		}
-		public int getPort(){
-			return port;
-		}
+        /*Methods
+         *Updated 9/28/2020
+         */
+         public String getUserName(){
+             try{
+                 if(userName == "Null") {
+                     throw new IllegalArgumentException("Username is null");
+                 }else
+                     return userName;
+             }catch(IllegalArgumentException i) {
+                 System.err.print("Illegal Arguement");
+             }
+             
+         }
+         
+         
+         public String getHostName(){
+             try{
+                 if(hostName == "Null") {
+                     throw new IllegalArgumentException("Hostname is null");
+                 }else
+                     return hostName;
+             }catch(IllegalArgumentException i) {
+                 System.err.print("Illegal Arguement");
+             }
+             
+         }
+         
+         
+         public int getPort(){
+             try{
+                 if(port < 1024) {
+                     throw new IllegalArgumentException("Port is less than 1024");
+                 }else
+                     return port;
+             }catch(IllegalArgumentException i) {
+                 System.err.print("Illegal Arguement");
+             }
+             
+         }
+
 		
 		/**
 		*Overriding function needed in this class

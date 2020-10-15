@@ -1,5 +1,6 @@
 package data; //making it apart of the data package
 
+import java.io.Serializable;
 import java.util.*;
 import clack.Clack;
 
@@ -8,7 +9,7 @@ import clack.Clack;
  *
  * @author Cole Short
  */
-public abstract class ClackData implements Clack{
+public abstract class ClackData implements Clack, Serializable{
 	private String userName; //String representing name of client user
 	private int type;
 	private Date date; //Date object representing date when ClackData object was created
@@ -26,7 +27,7 @@ public abstract class ClackData implements Clack{
 	}
 
 	/**
-	 * constructor that takes type, and passes adds on Anon as the default userName
+	 * constructor that takes type, and passes on Anon as the default userName
 	 * @param type
 	 */
 	public ClackData( int type ) {
@@ -75,6 +76,8 @@ public abstract class ClackData implements Clack{
 	 * abstract method, decrypts and returns either a message or a file's contents
 	 */
 	public abstract String getData(String key);
+	
+	
 	
 	/**
 	 * returns a lengthened version of the key
