@@ -1,6 +1,7 @@
 package main; //putting it in the main package
 
 import java.io.*;
+import java.net.*;
 import java.util.*;
 
 import data.ClackData;
@@ -35,17 +36,17 @@ public class ClackServer{ //extends ClackData{ //why was this extending clackdat
 		
 		/**
 	    *Updated 10/13/2020
-	    *Initializezed start() method
+	    *Initialized start() method
 	    */
 	    public void start() {
 	            try {
 	                ServerSocket sskt = new ServerSocket(this.port);
 	                Socket clientSkt = sskt.accept();
-	                this.outToClient = new ObjectOutputStream(sskt.getOutputStream());
-	                this.inFromClient = new ObjectInputStream(sskt.getInputStream());
+	                this.outToClient = new ObjectOutputStream(sskt.getOutputStream());//Error Found: The stream appears to be undefined for server sockets
+	                this.inFromClient = new ObjectInputStream(sskt.getInputStream());//Error Found: The stream appears to be undefined for server sockets
 	                
 	                while(!closeConnection) {
-	                    recieveData();
+	                    receiveData();
 	                    sendData();
 	                }
 	                    
@@ -59,7 +60,7 @@ public class ClackServer{ //extends ClackData{ //why was this extending clackdat
 	            }catch( ConnectException ce) {
 	                System.err.println( "Connect Exception" );
 	            }catch( NoRouteToHostException nrthe) {
-	                System.err.println( "No route to host"" );
+	                System.err.println( "No route to host" );
 	            }catch( IOException ioe ) {
 	                System.err.println( "IO Exception generated: ");
 	            }
@@ -68,8 +69,8 @@ public class ClackServer{ //extends ClackData{ //why was this extending clackdat
 	        
 	    public void receiveData() {
 	            try{
-	                dataToRecieveFromClient = inFromClient.readLine():
-	                System.out.println("Client Sent:"+ dataToRecieveFromClient);
+	                dataToReceiveFromClient = inFromClient.readLine(): //Error Found: type mismatch, datatorecieve is a clackdata object, while the readline is gives a string
+	                System.out.println("Client Sent:"+ dataToReceiveFromClient);
 	            }catch ( IOException ioe ) {
 	                System.err.println( "IO Exception generated: " + ioe.getMessage() );
 	            }
@@ -79,11 +80,11 @@ public class ClackServer{ //extends ClackData{ //why was this extending clackdat
 	    
 	    public void sendData(){
 	            try{
-	                dataToSendToClient = "Echoed" + dataToRecieveFromClient;
+	                dataToSendToClient = "Echoed" + dataToReceiveFromClient; //Error Found: dataToReceiveFromClient isn't a string and neither is dataToSendToClient
 	                System.out.println("Sending to client --- " + dataToSendToClient);
-	                outToClient.println(dataToSendToClient);
+	                outToClient.println(dataToSendToClient); //Error Found: dataToReceiveFromClient isn't a string
 	                outToClient.flush();
-	            }catch( IOException ioe ) {
+	            } catch( IOException ioe ) {
 	                System.err.println( "IO Exception generated: " + ioe.getMessage() );
 	            }
 	        }

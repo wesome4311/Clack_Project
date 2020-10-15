@@ -68,7 +68,7 @@ public class ClackClient implements Clack{ //you had this extend clackdata befor
             try{
                 Socket skt = new Socket(this.hostName, this.port);
                 this.outToServer = new ObjectOutputStream(skt.getOutputStream());
-                this.inFromServer = new ObjectInputStream(new PrintWriter(skt.getOutputStream(), true ););
+                this.inFromServer = new ObjectInputStream(new PrintWriter(skt.getOutputStream(), true );); //Error Found: gonna be honest, no idea what your doing here, but it's saying " The constructor ObjectInputStream(PrintWriter) is undefined"
                 while(!closeConnection) {
                     readClientData();
                     sendData();
@@ -92,12 +92,12 @@ public class ClackClient implements Clack{ //you had this extend clackdata befor
         
         
         public void readClientData() {
-            dataToSendToServer = inFromStd.readLine();
+            dataToSendToServer = inFromStd.readLine(); //Error Found: scanner doesn't have a readline function, plus datatosendtoserver is a clackdata object, not a string
         }
         
         
         public void printData() {
-            System.out.println("Server Sent: " + dataRecievedFromServer)
+            System.out.println("Server Sent: " + dataRecievedFromServer) //Error Found: datarecievedfromserver isn't a string, its a clackdata object
         }
         
         
@@ -107,7 +107,7 @@ public class ClackClient implements Clack{ //you had this extend clackdata befor
         */
         public void sendData() {
             try {
-                outToServer.println(dataToSendToServer)
+                outToServer.println(dataToSendToServer);//Error Found: objectoutputstream(what outtoserver is) doesn't have a println function, and datatosendtoserver isn't a string, its a clackdata object
             }catch( IOException ioe ) {
                 System.err.println( "IO Exception generated: " + ioe.getMessage() );
             }
@@ -116,7 +116,7 @@ public class ClackClient implements Clack{ //you had this extend clackdata befor
         
         public void receiveData() {
             try {
-                dataToRecieveFromServer = inFromServer.readLine();
+                dataToRecieveFromServer = inFromServer.readLine(); //Error Found: datatorecievefromserver isn't a string, its a clackdata object, and I got a warning that readline is depreciated
             }catch( IOException ioe ) {
                 System.err.println( "IO Exception generated: " + ioe.getMessage() );
             }
@@ -128,7 +128,7 @@ public class ClackClient implements Clack{ //you had this extend clackdata befor
         /*Methods
          *Updated 9/28/2020
          */
-         public String getUserName(){
+         public String getUserName(){ //Error Found: getusername has to return a string in both cases of the if statement, including if the username is null
              try{
                  if(userName == "Null") {
                      throw new IllegalArgumentException("Username is null");
@@ -141,7 +141,7 @@ public class ClackClient implements Clack{ //you had this extend clackdata befor
          }
          
          
-         public String getHostName(){
+         public String getHostName(){ //Error Found: gethostname has to return a string in both cases of the if statement, including if the hostname is null
              try{
                  if(hostName == "Null") {
                      throw new IllegalArgumentException("Hostname is null");
@@ -154,7 +154,7 @@ public class ClackClient implements Clack{ //you had this extend clackdata befor
          }
          
          
-         public int getPort(){
+         public int getPort(){ //Error Found: getport has to return an int in both cases of the if statement, including if the port is less than 1024
              try{
                  if(port < 1024) {
                      throw new IllegalArgumentException("Port is less than 1024");
