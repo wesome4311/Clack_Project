@@ -92,13 +92,13 @@ public class ClackClient implements Clack{ //you had this extend clackdata befor
         }
         
         
-        public void readClientData() { //this spot here cole
+        public void readClientData() {
             dataToSendToServer = inFromStd.readLine(); //Error Found: scanner doesn't have a readline function, plus datatosendtoserver is a clackdata object, not a string
         }
         
         
         public void printData() {
-            System.out.println("Server Sent: " + dataRecievedFromServer) //Error Found: datarecievedfromserver isn't a string, its a clackdata object
+            System.out.println("Server Sent: " + dataToReceiveFromServer.getData()); //Error Found: datarecievedfromserver isn't a string, its a clackdata object
         }
         
         
@@ -117,7 +117,7 @@ public class ClackClient implements Clack{ //you had this extend clackdata befor
         
         public void receiveData() {
             try {
-                dataToRecieveFromServer = inFromServer.readLine(); //Error Found: datatorecievefromserver isn't a string, its a clackdata object, and I got a warning that readline is depreciated
+            	dataToReceiveFromServer.setData(inFromServer.readLine()); //Error Found: datatorecievefromserver isn't a string, its a clackdata object, and I got a warning that readline is depreciated
             }catch( IOException ioe ) {
                 System.err.println( "IO Exception generated: " + ioe.getMessage() );
             }
@@ -133,9 +133,9 @@ public class ClackClient implements Clack{ //you had this extend clackdata befor
              try{
                  if(userName == "Null") {
                      throw new IllegalArgumentException("Username is null");
-                 }else
+                 } else
                      return userName;
-             }catch(IllegalArgumentException i) {
+             } catch(IllegalArgumentException i) {
                  System.err.print("Illegal Arguement");
              }
              

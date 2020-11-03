@@ -3,7 +3,7 @@ package main; //putting it in the main package
 import java.io.*;
 import java.net.*;
 import java.util.*;
-
+import clack.Clack;
 import data.ClackData;
 /**
 *ClackServer class
@@ -19,12 +19,14 @@ public class ClackServer{
 		final static int portNumber = 7000;
 		private ObjectInputStream inFromClient;
         private ObjectOutputStream outToClient;
+        public List<String> list_of_users;
 
 		/**
 		*Setting up the constructors for this class
 		*as well as a default constructor
 		*/
 		public ClackServer(int port){
+			this.list_of_users = new LinkedList<String>(); 
 			this.port = port;
 			this.dataToReceiveFromClient = null;
 			this.dataToSendToClient = null;
@@ -80,7 +82,16 @@ public class ClackServer{
 	    
 	    public void sendData(){
 	            try{
-	                dataToSendToClient. = "Echoed " + dataToReceiveFromClient; //Error Found: dataToReceiveFromClient isn't a string and neither is dataToSendToClient
+	            	if (dataToReceiveFromClient.getData() == "LISTUSERS") {
+	            		String string_of_users;
+	            		for (int i = 0; i < list_of_users.size(); i++) {
+	            			string_of_users = string_of_users + ", " + list_of_users.get(i);
+	            		}
+	            		dataToSendToClient.setData(string_of_users);
+	            	}
+	            	else {
+	            		dataToSendToClient.setData("Echoed " + dataToReceiveFromClient.getData()); //Error Found: dataToReceiveFromClient isn't a string and neither is dataToSendToClient
+	            	}
 	                System.out.println("Sending to client --- " + dataToSendToClient);
 	                outToClient.println(dataToSendToClient); //Error Found: dataToReceiveFromClient isn't a string
 	                outToClient.flush();

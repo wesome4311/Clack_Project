@@ -100,4 +100,15 @@ public class MessageClackData extends ClackData {
 				", the user's message is " + message + " and the type value is " + getType();
 		//return a string that's a list of all the variables here; userName, date, type, message
 	}
+	
+	
+
+	/**
+	 * a simple function to set data
+	 * @param newdata
+	 */
+	@Override
+	public void setData(String newdata) {
+		this.message = newdata;
+	}
 }

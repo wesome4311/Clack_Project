@@ -125,4 +125,13 @@ public class FileClackData extends ClackData {
 				", the user is trying to access the file " + fileName + " which is holding " + fileContents + ", and the type value is " + getType();
 		//return a string that's a list of all the variables here; userName, date, type, filename, filecontents
 	}
+
+	/**
+	 * a simple function to set data, may need to fix this when we eventually get told how to do writefilecontents
+	 * @param newdata
+	 */
+	@Override
+	public void setData(String newdata) {
+		this.fileContents = newdata;
+	}
 }

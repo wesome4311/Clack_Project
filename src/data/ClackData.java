@@ -71,6 +71,11 @@ public abstract class ClackData implements Clack, Serializable{
 	 * abstract method, returns either a message or a file's contents
 	 */
 	public abstract String getData();
+	
+	/**
+	 * abstract method, sets a message or a file's contents to the given string
+	 */
+	public abstract void setData(String newdata);
 
 	/**
 	 * abstract method, decrypts and returns either a message or a file's contents

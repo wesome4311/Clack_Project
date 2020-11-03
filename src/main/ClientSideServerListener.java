@@ -7,7 +7,7 @@ import data.ClackData;
  * @author MrCol
  * ClientSideServerListener is a runnable class that works alongside ClackClient to print and receive data from the server
  */
-public class ClientSideServerListener implements Runnable{ //reminder to myself to create javadoc for this once I'm done
+public class ClientSideServerListener implements Runnable{
 	
 	private ClackClient client;
 	
