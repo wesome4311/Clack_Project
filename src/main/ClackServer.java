@@ -80,7 +80,7 @@ public class ClackServer{
 	    
 	    public void sendData(){
 	            try{
-	                dataToSendToClient = "Echoed" + dataToReceiveFromClient; //Error Found: dataToReceiveFromClient isn't a string and neither is dataToSendToClient
+	                dataToSendToClient. = "Echoed " + dataToReceiveFromClient; //Error Found: dataToReceiveFromClient isn't a string and neither is dataToSendToClient
 	                System.out.println("Sending to client --- " + dataToSendToClient);
 	                outToClient.println(dataToSendToClient); //Error Found: dataToReceiveFromClient isn't a string
 	                outToClient.flush();

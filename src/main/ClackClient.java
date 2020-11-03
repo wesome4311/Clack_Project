@@ -20,7 +20,7 @@ public class ClackClient implements Clack{ //you had this extend clackdata befor
 		private String userName;
 		private String hostName;
 		private int port;
-		private boolean closeConnection;
+		boolean closeConnection;
 		private ClackData dataToSendToServer;
 		private ClackData dataToReceiveFromServer;
 		private Scanner inFromStd;
@@ -69,11 +69,12 @@ public class ClackClient implements Clack{ //you had this extend clackdata befor
                 Socket skt = new Socket(this.hostName, this.port);
                 this.outToServer = new ObjectOutputStream(skt.getOutputStream());
                 this.inFromServer = new ObjectInputStream(new PrintWriter(skt.getOutputStream(), true );); //Error Found: gonna be honest, no idea what your doing here, but it's saying " The constructor ObjectInputStream(PrintWriter) is undefined"
+                Runnable clientSideListener = new ClientSideServerListener(this);
                 while(!closeConnection) {
                     readClientData();
                     sendData();
-                    receiveData();
-                    printData();
+                    //receiveData();
+                    //printData(); //removed as its now apart of clientsideserverlistener
                 }
                 
                 this.outToServer.close();
@@ -91,7 +92,7 @@ public class ClackClient implements Clack{ //you had this extend clackdata befor
         }
         
         
-        public void readClientData() {
+        public void readClientData() { //this spot here cole
             dataToSendToServer = inFromStd.readLine(); //Error Found: scanner doesn't have a readline function, plus datatosendtoserver is a clackdata object, not a string
         }
         
